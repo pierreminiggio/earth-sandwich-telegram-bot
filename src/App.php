@@ -1,6 +1,6 @@
 <?php
 
-namespace EarthSandwichTelegramBot;
+namespace PierreMiniggio\EarthSandwichTelegramBot;
 
 use DateTime;
 use PierreMiniggio\DatabaseFetcher\DatabaseFetcher;
