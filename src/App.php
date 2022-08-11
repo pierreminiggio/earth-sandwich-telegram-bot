@@ -139,7 +139,8 @@ class App
         if ($firstwordAndRemainingMessage[0] === $fuckTrigger) {
             if (count($firstwordAndRemainingMessage) === 2) {
                 $remainingMessage = $firstwordAndRemainingMessage[1];
-                var_dump($remainingMessage);
+                $fuckMessage = 'fuck u ' . $remainingMessage;
+                var_dump($fuckMessage);
             }
         }
     }
