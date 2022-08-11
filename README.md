@@ -14,7 +14,7 @@ CREATE TABLE `fuck` (
   `trigger_update_id` VARCHAR(255) NOT NULL,
   `message_id` VARCHAR(255) NOT NULL,
   `content` TEXT NOT NULL,
-  `created_at` VARCHAR NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 ```
