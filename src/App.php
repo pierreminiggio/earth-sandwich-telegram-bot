@@ -30,14 +30,17 @@ class App
             )
         );
         
-        var_dump($lastMessages); die;
+        $hasALastMessage = count($lastMessages) > 0;
+        $lastUpdateId = $hasALastMessage ? $lastMessages[0]['update_id'] : null;
         
         $bot = $this->bot;
         
         $updatesCurl = curl_init();
         curl_setopt_array($updatesCurl, [
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/getupdates'
+            CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/getupdates' . (
+                $lastUpdateId ? ('?offset=' . $lastUpdateId) : ''
+            )
         ]);
 
         $updatesCurlResponse = curl_exec($updatesCurl);
