@@ -147,6 +147,12 @@ class App
                 
                 $chat = $messageData['chat'];
                 
+                if (! isset($chat['id'])) {
+                    return;
+                }
+                
+                $chatId = $chat['id'];
+                
                 var_dump($chat);
             }
         }
