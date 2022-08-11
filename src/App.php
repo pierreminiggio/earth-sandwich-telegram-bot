@@ -140,7 +140,9 @@ class App
             if (count($firstwordAndRemainingMessage) === 2) {
                 $remainingMessage = $firstwordAndRemainingMessage[1];
                 $fuckMessage = 'fuck u ' . $remainingMessage;
-                var_dump($fuckMessage);
+                var_dump($messageData);
+                
+                
             }
         }
     }
