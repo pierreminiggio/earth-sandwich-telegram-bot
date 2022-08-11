@@ -109,6 +109,7 @@ class App
                     'message' => json_encode($messageData)
                 ]
             );*/
+            
             $this->doStuffWithUpdate($updateId, $messageData);
         }
         
