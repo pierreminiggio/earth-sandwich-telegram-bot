@@ -38,8 +38,8 @@ class App
         $updatesCurl = curl_init();
         curl_setopt_array($updatesCurl, [
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/getupdates' . (
-                $lastUpdateId ? ('?offset=' . $lastUpdateId) : ''
+            CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/getupdates?limit=20' . (
+                $lastUpdateId ? ('&offset=' . $lastUpdateId) : ''
             )
         ]);
 
