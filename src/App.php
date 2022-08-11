@@ -76,7 +76,7 @@ class App
                 ['update_id' => $updateId]
             );
             
-            if (count($fetchedMessages) {
+            if (count($fetchedMessages)) {
                 continue;
             }
             
