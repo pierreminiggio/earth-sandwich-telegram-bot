@@ -1,4 +1,18 @@
 {
+    "authors": [
+        {
+            "name": "Pierre MINIGGIO",
+            "email": "pierre@miniggiodev.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PierreMiniggio\\EarthSandwichTelegramBot\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
     "require": {
         "pierreminiggio/config-provider": "^1.0"
     }
