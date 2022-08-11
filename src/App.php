@@ -17,5 +17,7 @@ class App
     public function run(): int
     {
         var_dump($this->bot);
+        
+        return 0;
     }
 }
