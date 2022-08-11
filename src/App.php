@@ -118,6 +118,6 @@ class App
     
     private function doStuffWithUpdate(string $updateId, array $mesageData): void
     {
-        var_dump($updateId);
+        var_dump($mesageData);
     }
 }
