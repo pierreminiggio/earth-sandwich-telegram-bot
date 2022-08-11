@@ -211,7 +211,7 @@ class App
                     throw new Eception('Update ' . $updateId . ' was not saved !');
                 }
                 
-                $messageId = (int) $fetchedMessages[0]['id];
+                $messageId = (int) $fetchedMessages[0]['id'];
                 
                 $fetcher->exec(
                     $fetcher->createQuery(
