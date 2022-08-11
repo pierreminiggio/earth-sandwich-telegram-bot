@@ -116,7 +116,7 @@ class App
         return 0;
     }
     
-    private doStuffWithUpdate(string $updateId, array $mesageData): void
+    private function doStuffWithUpdate(string $updateId, array $mesageData): void
     {
         var_dump($updateId);
     }
