@@ -21,7 +21,7 @@ class App
         $updatesCurl = curl_init();
         curl_setopt_array($updatesCurl, [
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $channelApiUrl . '/' . $channelId
+            CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/getupdates'
         ]);
 
         $updatesCurlResult = curl_exec($updatesCurl);
