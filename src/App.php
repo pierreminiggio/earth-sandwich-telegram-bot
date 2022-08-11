@@ -128,7 +128,11 @@ class App
         
         if (str_starts_with($text, $botname)) {
             $this->botTaggedHandler($botname, $updateId, $messageData, $text);
+            
+            return;
         }
+        
+        $this->sendFucksIfNeeded($updateId, $messageData, $text);
     }
             
     private function botTaggedHandler(string $botname, string $updateId, array $messageData, string $messageText): void
