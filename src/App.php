@@ -56,7 +56,7 @@ class App
             if (! isset(
                 $fetchedUpdate['update_id'],
                 $fetchedUpdate['message']
-            ) {
+            )) {
                 continue;
             }
                 
