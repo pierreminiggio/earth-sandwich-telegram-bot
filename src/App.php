@@ -80,6 +80,18 @@ class App
                 continue;
             }
             
+            $fetcher->exec(
+                $fetcher->createQuery(
+                    'message'
+                )->insertInto(
+                    'update_id, message',
+                    ':update_id, :message'
+                ),
+                [
+                    'update_id' => $updateId,
+                    'message' => json_encode($messageData)
+                ]
+            );
             var_dump($updateId);
         }
         
