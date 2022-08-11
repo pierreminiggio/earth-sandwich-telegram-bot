@@ -34,6 +34,6 @@ try {
         ))
     ))->run());
 } catch (Throwable $e) {
-    echo get_class($e) . ' : ' . $e->getMessage();
+    echo get_class($e) . ' : ' . $e->getMessage() . ' ' . $e->getTraceAsString();
     exit;
 }
