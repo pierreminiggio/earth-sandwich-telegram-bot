@@ -16,6 +16,22 @@ class App
   
     public function run(): int
     {
+        $fetcher = $this->fetcher;
+        $lastMessages = $fetcher->query(
+            $fetcher->createQuery(
+                'message'
+            )->select(
+                'update_id',
+            )->orderBy(
+                'id',
+                'DESC'
+            )->limit(
+                1
+            )
+        );
+        
+        var_dump($lastMessages); die;
+        
         $bot = $this->bot;
         
         $updatesCurl = curl_init();
@@ -51,8 +67,6 @@ class App
         }
         
         $fetchedUpdates = $updatesCurlJsonResponse['result'];
-        
-        $fetcher = $this->fetcher;
         
         foreach ($fetchedUpdates as $fetchedUpdate) {
             if (! isset(
