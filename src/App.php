@@ -126,7 +126,7 @@ class App
         
         $botname = '@EarthSandwichBot';
         
-        if (str_starts_with($text, $botname) {
+        if (str_starts_with($text, $botname)) {
             $this->botTaggedHandler($botname, $updateId, $messageData, $text);
         }
     }
