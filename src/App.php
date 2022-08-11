@@ -158,7 +158,7 @@ class App
                 $fuckCurl = curl_init();
                 curl_setopt_array($fuckCurl, [
                     CURLOPT_RETURNTRANSFER => 1,
-                    CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/sendMessage?chat_id=' + $chatId + '&text=' + $fuckMessage
+                    CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/sendMessage?chat_id=' . $chatId . '&text=' . $fuckMessage
                 ]);
                 $fuckCurlResponse = curl_exec($fuckCurl);
                 $httpCode = curl_getinfo($fuckCurl)['http_code'];
