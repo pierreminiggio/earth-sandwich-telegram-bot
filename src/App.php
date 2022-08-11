@@ -110,19 +110,30 @@ class App
                 ]
             );*/
             
-            $this->doStuffWithUpdate($updateId, $messageData);
+            $this->newUpdateHandler($updateId, $messageData);
         }
         
         return 0;
     }
     
-    private function doStuffWithUpdate(string $updateId, array $messageData): void
+    private function newUpdateHandler(string $updateId, array $messageData): void
     {
         if (! isset($messageData['text'])) {
             return;
         }
         
         $text = $messageData['text'];
-        var_dump($text);
+        
+        $botname = '@EarthSandwichBot';
+        
+        if (str_starts_with($text, $botname) {
+            $this->botTaggedHandler($botname, $updateId, $messageData, $text);
+        }
+    }
+            
+    private function botTaggedHandler(string $botname, string $updateId, array $messageData, string $messageText): void
+    {
+        $messageAfterTag = trim(substr($messageText, strlen($botname)));
+        var_dump($messageAfterTag);
     }
 }
