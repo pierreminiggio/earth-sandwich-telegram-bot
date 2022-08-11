@@ -178,15 +178,15 @@ class App
                     throw new Exception('Bad JSON for fuck request : ' . $fuckCurlJsonResponse);
                 }
 
-                if (empty($updatesCurlJsonResponse['ok'])) {
+                if (empty($fuckCurlJsonResponse['ok'])) {
                     throw new Exception('fuck request not ok : ' . $fuckCurlJsonResponse);
                 }
 
-                if (! isset($updatesCurlJsonResponse['result'])) {
+                if (! isset($fuckCurlJsonResponse['result'])) {
                     throw new Exception('fuck request missing result key : ' . $fuckCurlJsonResponse);
                 }
 
-                $fetchedFuck = $updatesCurlJsonResponse['result'];
+                $fetchedFuck = $fuckCurlJsonResponse['result'];
                 
                 if (! isset($fetchedFuck['message_id'])) {
                     throw new Exception('fuck request missing result->message_id key : ' . $fuckCurlJsonResponse);
