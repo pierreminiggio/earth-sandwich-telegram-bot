@@ -24,19 +24,25 @@ class App
             CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/getupdates'
         ]);
 
-        $updatesCurlResult = curl_exec($updatesCurl);
+        $updatesCurlResponse = curl_exec($updatesCurl);
         $httpCode = curl_getinfo($updatesCurl)['http_code'];
         curl_close($updatesCurl);
         
         if ($httpCode !== 200) {
-            throw new Exception('Updates request failed with code ' . $httpCode . ' : ' . $updatesCurlResult);
+            throw new Exception('Updates request failed with code ' . $httpCode . ' : ' . $updatesCurlResponse);
         }
 
-        if ($updatesCurlResult === false) {
+        if ($updatesCurlResponse === false) {
             throw new Exception('No body for updates request');
         }
         
-        var_dump($updatesCurlResult);
+        $updatesCurlJsonResponse = json_decode($updatesCurlResponse, true);
+        
+        if (! $updatesCurlJsonResponse) {
+            throw new Exception('Bad JSON for updates request : ' . $updatesCurlResponse);
+        }
+        
+        var_dump($updatesCurlJsonResponse);
         
         return 0;
     }
