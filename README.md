@@ -3,7 +3,7 @@ SQL :
 ```sql
 CREATE TABLE `message` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `activity_id` VARCHAR(255) NOT NULL,
+  `update_id` VARCHAR(255) NOT NULL,
   `message` LONGTEXT NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
