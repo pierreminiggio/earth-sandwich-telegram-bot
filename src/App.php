@@ -168,7 +168,7 @@ class App
                     throw new Exception('fuck request failed with code ' . $httpCode . ' : ' . $fuckCurlResponse);
                 }
 
-                if ($updatesCurlResponse === false) {
+                if ($fuckCurlResponse === false) {
                     throw new Exception('No body for fuck request');
                 }
 
