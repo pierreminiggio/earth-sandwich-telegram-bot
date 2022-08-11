@@ -134,7 +134,12 @@ class App
     private function botTaggedHandler(string $botname, string $updateId, array $messageData, string $messageText): void
     {
         $messageAfterTag = trim(substr($messageText, strlen($botname)));
-        $firstwordAndRemainingMessage = explode(' ', $messageAfterTag, 2);
+        $this->sendFucksIfNeeded($updateId, $messageData, $messageAfterTag);
+    }
+    
+    private function sendFucksIfNeeded(string $updateId, array $messageData, string $messageText): void
+    {
+        $firstwordAndRemainingMessage = explode(' ', $messageText, 2);
         $fuckTrigger = 'fuck';
         if ($firstwordAndRemainingMessage[0] === $fuckTrigger) {
             if (count($firstwordAndRemainingMessage) === 2) {
