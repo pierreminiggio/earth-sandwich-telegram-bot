@@ -134,6 +134,10 @@ class App
     private function botTaggedHandler(string $botname, string $updateId, array $messageData, string $messageText): void
     {
         $messageAfterTag = trim(substr($messageText, strlen($botname)));
-        var_dump($messageAfterTag);
+        $firstwordAndRemainingMessage = explode(' ', $messageAfterTag, 2);
+        $fuckTrigger = 'fuck';
+        if ($firstwordAndRemainingMessage[0] === $fuckTrigger) {
+            var_dump($messageAfterTag);
+        }
     }
 }
