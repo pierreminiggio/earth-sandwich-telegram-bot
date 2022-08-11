@@ -162,46 +162,7 @@ class App
                 
                 $chatId = $chat['id'];
                 
-                $bot = $this->bot;
-        
-                $fuckCurl = curl_init();
-                curl_setopt_array($fuckCurl, [
-                    CURLOPT_RETURNTRANSFER => 1,
-                    CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/sendMessage?chat_id=' . $chatId . '&text=' . $fuckMessage
-                ]);
-                $fuckCurlResponse = curl_exec($fuckCurl);
-                $httpCode = curl_getinfo($fuckCurl)['http_code'];
-                curl_close($fuckCurl);
-
-                if ($httpCode !== 200) {
-                    throw new Exception('fuck request failed with code ' . $httpCode . ' : ' . $fuckCurlResponse);
-                }
-
-                if ($fuckCurlResponse === false) {
-                    throw new Exception('No body for fuck request');
-                }
-
-                $fuckCurlJsonResponse = json_decode($fuckCurlResponse, true);
-
-                if (! $fuckCurlJsonResponse) {
-                    throw new Exception('Bad JSON for fuck request : ' . $fuckCurlJsonResponse);
-                }
-
-                if (empty($fuckCurlJsonResponse['ok'])) {
-                    throw new Exception('fuck request not ok : ' . $fuckCurlJsonResponse);
-                }
-
-                if (! isset($fuckCurlJsonResponse['result'])) {
-                    throw new Exception('fuck request missing result key : ' . $fuckCurlJsonResponse);
-                }
-
-                $fetchedFuck = $fuckCurlJsonResponse['result'];
-                
-                if (! isset($fetchedFuck['message_id'])) {
-                    throw new Exception('fuck request missing result->message_id key : ' . $fuckCurlJsonResponse);
-                }
-                
-                $fuckMessageId = $fetchedFuck['message_id'];
+                $fuckMessageId = $this->sendMessageToChat($chatId, $fuckMessage);
                 
                 $fetcher = $this->fetcher;
                 
@@ -237,5 +198,49 @@ class App
                 );
             }
         }
+    }
+    
+    private function sendMessageToChat(string $chatId, string $message): string
+    {
+        $bot = $this->bot;
+        
+        $sendMessageCurl = curl_init();
+        curl_setopt_array($sendMessageCurl, [
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/sendMessage?chat_id=' . $chatId . '&text=' . $message
+        ]);
+        $sendMessageCurlResponse = curl_exec($sendMessageCurl);
+        $httpCode = curl_getinfo($sendMessageCurl)['http_code'];
+        curl_close($sendMessageCurl);
+
+        if ($httpCode !== 200) {
+            throw new Exception('fuck request failed with code ' . $httpCode . ' : ' . $sendMessageCurlResponse);
+        }
+
+        if ($sendMessageCurlResponse === false) {
+            throw new Exception('No body for fuck request');
+        }
+
+        $sendMessageCurlJsonResponse = json_decode($sendMessageCurlResponse, true);
+
+        if (! $sendMessageCurlJsonResponse) {
+            throw new Exception('Bad JSON for fuck request : ' . $sendMessageCurlResponse);
+        }
+
+        if (empty($sendMessageCurlJsonResponse['ok'])) {
+            throw new Exception('fuck request not ok : ' . $sendMessageCurlResponse);
+        }
+
+        if (! isset($sendMessageCurlJsonResponse['result'])) {
+            throw new Exception('fuck request missing result key : ' . $sendMessageCurlResponse);
+        }
+
+        $fetchedMessage = $sendMessageCurlJsonResponse['result'];
+
+        if (! isset($fetchedMessage['message_id'])) {
+            throw new Exception('fuck request missing result->message_id key : ' . $sendMessageCurlResponse);
+        }
+
+        return $fetchedMessage['message_id'];
     }
 }
