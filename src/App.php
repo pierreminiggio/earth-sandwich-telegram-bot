@@ -118,6 +118,11 @@ class App
     
     private function doStuffWithUpdate(string $updateId, array $mesageData): void
     {
-        var_dump($mesageData);
+        if (! isset($messageData['text'])) {
+            return;
+        }
+        
+        $text = $messageData['test'];
+        var_dump($text);
     }
 }
