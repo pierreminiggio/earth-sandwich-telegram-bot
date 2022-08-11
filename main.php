@@ -1,6 +1,6 @@
 <?php
 
-$projectFolder = __DIR__ . DIRECTORY_SEPARATOR
+$projectFolder = __DIR__ . DIRECTORY_SEPARATOR;
   
 require $projectFolder . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
