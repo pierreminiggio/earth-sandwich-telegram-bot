@@ -52,6 +52,8 @@ class App
         
         $fetchedUpdates = $updatesCurlJsonResponse['result'];
         
+        $fetcher = $this->fetcher;
+        
         foreach ($fetchedUpdates as $fetchedUpdate) {
             if (! isset(
                 $fetchedUpdate['update_id'],
@@ -62,6 +64,22 @@ class App
                 
             $updateId = $fetchedUpdate['update_id'];
             $messageData = $fetchedUpdate['message'];
+            
+            $fetchedMessages = $fetcher->query(
+                $fetcher->createQuery(
+                    'message'
+                )->select(
+                    'id',
+                )->where(
+                    'update_id = :update_id'
+                ),
+                ['update_id' => $updateId]
+            );
+            
+            if (count($fetchedMessages) {
+                continue;
+            }
+            
             var_dump($updateId);
         }
         
