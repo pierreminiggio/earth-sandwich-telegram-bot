@@ -97,7 +97,7 @@ class App
                 continue;
             }
             
-            $fetcher->exec(
+            /*$fetcher->exec(
                 $fetcher->createQuery(
                     'message'
                 )->insertInto(
@@ -108,10 +108,15 @@ class App
                     'update_id' => $updateId,
                     'message' => json_encode($messageData)
                 ]
-            );
-            var_dump($updateId);
+            );*/
+            $this->doStuffWithUpdate($updateId, $messageData);
         }
         
         return 0;
+    }
+    
+    private doStuffWithUpdate(string $updateId, array $mesageData): void
+    {
+        var_dump($updateId);
     }
 }
