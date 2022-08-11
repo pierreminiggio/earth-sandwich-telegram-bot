@@ -2,7 +2,7 @@
 
 namespace PierreMiniggio\EarthSandwichTelegramBot;
 
-use DateTime;
+use Exception;
 use PierreMiniggio\DatabaseFetcher\DatabaseFetcher;
 
 class App
@@ -16,7 +16,27 @@ class App
   
     public function run(): int
     {
-        var_dump($this->bot);
+        $bot = $this->bot;
+        
+        $updatesCurl = curl_init();
+        curl_setopt_array($updatesCurl, [
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $channelApiUrl . '/' . $channelId
+        ]);
+
+        $updatesCurlResult = curl_exec($updatesCurl);
+        $httpCode = curl_getinfo($updatesCurl)['http_code'];
+        curl_close($updatesCurl);
+        
+        if ($httpCode !== 200) {
+            throw new Exception('Updates request failed with code ' . $httpCode . ' : ' . $updatesCurlResult);
+        }
+
+        if ($updatesCurlResult === false) {
+            throw new Exception('No body for updates request');
+        }
+        
+        var_dump($updatesCurlResult);
         
         return 0;
     }
