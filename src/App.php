@@ -53,7 +53,16 @@ class App
         $fetchedUpdates = $updatesCurlJsonResponse['result'];
         
         foreach ($fetchedUpdates as $fetchedUpdate) {
-            var_dump($fetchedUpdate);
+            if (! isset(
+                $fetchedUpdate['update_id'],
+                $fetchedUpdate['message']
+            ) {
+                continue;
+            }
+                
+            $updateId = $fetchedUpdate['update_id'];
+            $messageData = $fetchedUpdate['message'];
+            var_dump($updateId);
         }
         
         return 0;
