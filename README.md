@@ -1,7 +1,7 @@
 SQL :
 
 ```sql
-CREATE TABLE `earth_sandwich_telegram_bot`.`messages` (
+CREATE TABLE `message` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `activity_id` VARCHAR(255) NOT NULL,
   `message` LONGTEXT NOT NULL,
