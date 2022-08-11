@@ -16,6 +16,12 @@ if (! isset($config['bot'])) {
     throw new Exception('Missing bot config');
 }
 
+if (! isset($config['db'])) {
+    throw new Exception('Missing DB config');
+}
+
+$dbConfig = $config['db'];
+
 try {
     exit((new App(
         $config['bot'],
