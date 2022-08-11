@@ -44,6 +44,7 @@ class App
         
         foreach ($updatesCurlJsonResponse as $fetchedUpdate) {
             var_dump($fetchedUpdate);
+            die;
         }
         
         return 0;
