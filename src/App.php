@@ -116,9 +116,8 @@ class App
         return 0;
     }
     
-    private function doStuffWithUpdate(string $updateId, array $mesageData): void
+    private function doStuffWithUpdate(string $updateId, array $messageData): void
     {
-        var_dump($messageData);
         if (! isset($messageData['text'])) {
             return;
         }
