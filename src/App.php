@@ -122,7 +122,7 @@ class App
             return;
         }
         
-        $text = $messageData['test'];
+        $text = $messageData['text'];
         var_dump($text);
     }
 }
