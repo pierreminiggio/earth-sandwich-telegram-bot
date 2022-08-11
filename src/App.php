@@ -29,21 +29,31 @@ class App
         curl_close($updatesCurl);
         
         if ($httpCode !== 200) {
-            throw new Exception('Updates request failed with code ' . $httpCode . ' : ' . $updatesCurlResponse);
+            throw new Exception('getUpdates request failed with code ' . $httpCode . ' : ' . $updatesCurlResponse);
         }
 
         if ($updatesCurlResponse === false) {
-            throw new Exception('No body for updates request');
+            throw new Exception('No body for getUpdates request');
         }
         
         $updatesCurlJsonResponse = json_decode($updatesCurlResponse, true);
         
         if (! $updatesCurlJsonResponse) {
-            throw new Exception('Bad JSON for updates request : ' . $updatesCurlResponse);
+            throw new Exception('Bad JSON for getUpdates request : ' . $updatesCurlResponse);
         }
         
-        foreach ($updatesCurlJsonResponse as $updateKey => $updateValue) {
-            var_dump($updateKey);
+        if (empty($updatesCurlJsonResponse['ok'])) {
+            throw new Exception('getUpdates request not ok : ' . $updatesCurlResponse);
+        }
+            
+        if (! isset($updatesCurlJsonResponse['result'])) {
+            throw new Exception('getUpdates request missing result key : ' . $updatesCurlResponse);
+        }
+        
+        $fetchedUpdates = $updatesCurlJsonResponse['result'];
+        
+        foreach ($fetchedUpdates as $fetchedUpdate) {
+            var_dump($fetchedUpdate);
         }
         
         return 0;
