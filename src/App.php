@@ -42,7 +42,9 @@ class App
             throw new Exception('Bad JSON for updates request : ' . $updatesCurlResponse);
         }
         
-        var_dump($updatesCurlJsonResponse);
+        foreach ($updatesCurlJsonResponse as $fetchedUpdate) {
+            var_dump($fetchedUpdate);
+        }
         
         return 0;
     }
