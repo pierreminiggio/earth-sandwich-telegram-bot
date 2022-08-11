@@ -97,7 +97,7 @@ class App
                 continue;
             }
             
-            /*$fetcher->exec(
+            $fetcher->exec(
                 $fetcher->createQuery(
                     'message'
                 )->insertInto(
@@ -108,7 +108,7 @@ class App
                     'update_id' => $updateId,
                     'message' => json_encode($messageData)
                 ]
-            );*/
+            );
             
             $this->newUpdateHandler($updateId, $messageData);
         }
@@ -153,7 +153,79 @@ class App
                 
                 $chatId = $chat['id'];
                 
-                var_dump($chat);
+                $bot = $this->bot;
+        
+                $fuckCurl = curl_init();
+                curl_setopt_array($fuckCurl, [
+                    CURLOPT_RETURNTRANSFER => 1,
+                    CURLOPT_URL => 'https://api.telegram.org/bot' . $bot . '/sendMessage?chat_id=' + $chatId + '&text=' + $fuckMessage
+                ]);
+                $fuckCurlResponse = curl_exec($fuckCurl);
+                $httpCode = curl_getinfo($fuckCurl)['http_code'];
+                curl_close($fuckCurl);
+
+                if ($httpCode !== 200) {
+                    throw new Exception('fuck request failed with code ' . $httpCode . ' : ' . $fuckCurlResponse);
+                }
+
+                if ($updatesCurlResponse === false) {
+                    throw new Exception('No body for fuck request');
+                }
+
+                $fuckCurlJsonResponse = json_decode($fuckCurlResponse, true);
+
+                if (! $fuckCurlJsonResponse) {
+                    throw new Exception('Bad JSON for fuck request : ' . $fuckCurlJsonResponse);
+                }
+
+                if (empty($updatesCurlJsonResponse['ok'])) {
+                    throw new Exception('fuck request not ok : ' . $fuckCurlJsonResponse);
+                }
+
+                if (! isset($updatesCurlJsonResponse['result'])) {
+                    throw new Exception('fuck request missing result key : ' . $fuckCurlJsonResponse);
+                }
+
+                $fetchedFuck = $updatesCurlJsonResponse['result'];
+                
+                if (! isset($fetchedFuck['message_id'])) {
+                    throw new Exception('fuck request missing result->message_id key : ' . $fuckCurlJsonResponse);
+                }
+                
+                $fuckMessageId = $fetchedFuck['message_id'];
+                
+                $fetcher = $this->fetcher;
+                
+                $fetchedMessages = $fetcher->query(
+                    $fetcher->createQuery(
+                        'message'
+                    )->select(
+                        'id',
+                    )->where(
+                        'update_id = :update_id'
+                    ),
+                    ['update_id' => $updateId]
+                );
+
+                if (! count($fetchedMessages)) {
+                    throw new Eception('Update ' . $updateId . ' was not saved !');
+                }
+                
+                $messageId = (int) $fetchedMessages[0]['id];
+                
+                $fetcher->exec(
+                    $fetcher->createQuery(
+                        'fuck'
+                    )->insertInto(
+                        'message_id, fuck_message_id, content',
+                        ':message_id, :fuck_message_id, :content'
+                    ),
+                    [
+                        'message_id' => $messageId,
+                        'fuck_message_id' => $fuckMessageId,
+                        'content' => $fuckMessage
+                    ]
+                );
             }
         }
     }
