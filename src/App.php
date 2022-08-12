@@ -122,7 +122,26 @@ class App
                 || str_contains(strtolower($text), 'gave')
             )
         ) {
-            $this->sendGivenFucks($updateId, $messageData, $text);
+            $this->sendGivenFucks($updateId, $messageData);
+            
+            return;
+        }
+        
+        $explodedWords = explode(' ', strtolower($text));
+        
+        if (
+            in_array('like', $explodedWords)
+            || in_array('likes', $explodedWords)
+            || in_array('enjoy', $explodedWords)
+            || in_array('enjoys', $explodedWords)
+            || in_array('love', $explodedWords)
+            || in_array('loves', $explodedWords)
+            || in_array('despise', $explodedWords)
+            || in_array('despises', $explodedWords)
+            || in_array('hate', $explodedWords)
+            || in_array('hates', $explodedWords)
+        ) {
+            this->sendAppreciation($updateId, $messageData);
             
             return;
         }
@@ -158,7 +177,7 @@ class App
         }
     }
     
-    private function sendGivenFucks(string $updateId, array $messageData, string $messageText): void
+    private function sendGivenFucks(string $updateId, array $messageData): void
     {
         $fetcher = $this->fetcher;
         $fetchedCounts = $fetcher->rawQuery(
@@ -182,6 +201,27 @@ class App
         $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
         
         $this->clapBack($messageData, 'given_fucks', $fucksGivenMessage);
+    }
+    
+    private function sendAppreciation(string $updateId, array $messageData): void
+    {
+        $appreciationMessages = [
+            '👍',
+            'I like it',
+            'I enjoy it',
+            'I don\'t like it',
+            'Your mom enjoyed it as well',
+            'I apreciate it as well !',
+            'That\'s cool !!!',
+            'I don\'t care about what you like or dislike',
+            '❤️',
+            '❤️❤️',
+            '❤️❤️❤️'
+        ];
+        
+        $appreciationMessage = $appreciationMessages[array_rand($appreciationMessages)];
+        
+        $this->clapBack($messageData, 'appreciation', $appreciationMessage);
     }
     
     private function clapBack(array $messageData, string $messageType, string $messageContent): void
