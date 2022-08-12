@@ -153,18 +153,12 @@ class App
                 $remainingMessage = $firstwordAndRemainingMessage[1];
                 $fuckMessage = 'fuck u ' . $remainingMessage;
                 
-                if (! isset($messageData['chat'])) {
+                $chatId = $this->getChatIdFromMessageData($messageData);
+        
+                if (! $chatId) {
                     return;
                 }
-                
-                $chat = $messageData['chat'];
-                
-                if (! isset($chat['id'])) {
-                    return;
-                }
-                
-                $chatId = $chat['id'];
-                
+
                 $fuckMessageId = $this->sendMessageToChat($chatId, $fuckMessage);
                 $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
                 
@@ -187,17 +181,11 @@ class App
     
     private function sendGivenFucks(string $updateId, array $messageData, string $messageText): void
     {
-        if (! isset($messageData['chat'])) {
+        $chatId = $this->getChatIdFromMessageData($messageData);
+        
+        if (! $chatId) {
             return;
         }
-
-        $chat = $messageData['chat'];
-
-        if (! isset($chat['id'])) {
-            return;
-        }
-
-        $chatId = $chat['id'];
         
         $fetcher = $this->fetcher;
         $fetchedCounts = $fetcher->rawQuery(
@@ -235,6 +223,21 @@ class App
                 'content' => $fucksGivenMessage
             ]
         );
+    }
+    
+    private function getChatIdFromMessageData(array $messageData): ?string
+    {
+        if (! isset($messageData['chat'])) {
+            return null;
+        }
+
+        $chat = $messageData['chat'];
+
+        if (! isset($chat['id'])) {
+            return null;
+        }
+
+        return $chat['id'];
     }
     
     private function findMessageDataBaseIdByUpdateId(string $updateId): int
