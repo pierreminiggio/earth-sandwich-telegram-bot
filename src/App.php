@@ -153,16 +153,7 @@ class App
                 $remainingMessage = $firstwordAndRemainingMessage[1];
                 $fuckMessage = 'fuck u ' . $remainingMessage;
                 
-                $chatId = $this->getChatIdFromMessageData($messageData);
-        
-                if (! $chatId) {
-                    return;
-                }
-
-                $fuckMessageId = $this->sendMessageToChat($chatId, $fuckMessage);
-                $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
-                
-                $this->insertPostedMessage('fuck', $messageId, $fuckMessageId, $fuckMessage);
+                $this->clapBack($messageData, 'fuck', $fuckMessage);
             }
         }
     }
@@ -190,16 +181,21 @@ class App
         
         $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
         
+        $this->clapBack($messageData, 'given_fucks', $fucksGivenMessage);
+    }
+    
+    private function clapBack(array $messageData, string $messageType, string $messageContent): void
+    {
         $chatId = $this->getChatIdFromMessageData($messageData);
         
         if (! $chatId) {
             return;
         }
         
-        $fucksGivenMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
+        $clapBackMessageId = $this->sendMessageToChat($chatId, $messageContent);
         $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
 
-        $this->insertPostedMessage('given_fucks', $messageId, $fucksGivenMessageId, $fucksGivenMessage);
+        $this->insertPostedMessage($messageType, $messageId, $clapBackMessageId, $messageContent);
     }
     
     private function insertPostedMessage(string $messageType, int $messageId, string $telegramMessageId, string $content): void
