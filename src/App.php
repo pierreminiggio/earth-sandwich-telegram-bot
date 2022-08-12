@@ -218,7 +218,7 @@ class App
                 $messageType . '_message'
             )->insertInto(
                 'message_id, ' . $telegramIdColumnName . ', content',
-                ':message_id, : ' . $telegramIdColumnName . ', :content'
+                ':message_id, :' . $telegramIdColumnName . ', :content'
             ),
             $params
         );
