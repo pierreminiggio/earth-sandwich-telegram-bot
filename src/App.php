@@ -238,7 +238,15 @@ class App
         
         $fucksGivenCount = $fetchedCounts[0]['given_fucks'];
 
-        $fucksGivenMessage = 'I gave ' . $fucksGivenCount . ' fucks !';
+        $fucksGivenMessages = [
+            'I gave ' . $fucksGivenCount . ' fucks.',
+            'I gave ' . $fucksGivenCount . ' fucks !',
+            'But I did gave ' . $fucksGivenCount . ' fucks, so what ?',
+            'What do you mean ? I already have given a whole ' . $fucksGivenCount . ' of fucks.',
+            'I don\'t know how many fucks your mom gave, but I gave ' . $fucksGivenCount . ' of my own.'
+        ];
+        
+        $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
         $givenFucksMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
 
         $fetchedMessages = $fetcher->query(
