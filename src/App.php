@@ -185,7 +185,7 @@ class App
                 
                 $fetcher->exec(
                     $fetcher->createQuery(
-                        'fuck'
+                        'fuck_message'
                     )->insertInto(
                         'message_id, fuck_message_id, content',
                         ':message_id, :fuck_message_id, :content'
