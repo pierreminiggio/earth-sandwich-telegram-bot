@@ -9,7 +9,7 @@ CREATE TABLE `message` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-CREATE TABLE `fuck` (
+CREATE TABLE `fuck_message` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `message_id` INT NOT NULL,
   `fuck_message_id` VARCHAR(255) NOT NULL,
