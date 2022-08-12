@@ -169,12 +169,6 @@ class App
     
     private function sendGivenFucks(string $updateId, array $messageData, string $messageText): void
     {
-        $chatId = $this->getChatIdFromMessageData($messageData);
-        
-        if (! $chatId) {
-            return;
-        }
-        
         $fetcher = $this->fetcher;
         $fetchedCounts = $fetcher->rawQuery(
             'SELECT count(id) as given_fucks FROM fuck_message'
@@ -195,6 +189,13 @@ class App
         ];
         
         $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
+        
+        $chatId = $this->getChatIdFromMessageData($messageData);
+        
+        if (! $chatId) {
+            return;
+        }
+        
         $fucksGivenMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
         $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
 
