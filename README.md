@@ -35,4 +35,13 @@ CREATE TABLE `appreciation_message` (
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+CREATE TABLE `duck_message` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `message_id` INT NOT NULL,
+  `duck_message_id` VARCHAR(255) NOT NULL,
+  `content` TEXT NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
 ```
