@@ -72,10 +72,12 @@ class App
         $fetchedUpdates = $updatesCurlJsonResponse['result'];
         
         foreach ($fetchedUpdates as $fetchedUpdate) {
-            if (! isset(
-                $fetchedUpdate['update_id'],
-                $fetchedUpdate['message']
-            )) {
+            if (
+                ! isset(
+                    $fetchedUpdate['update_id'],
+                    $fetchedUpdate['message']
+                )
+            ) {
                 continue;
             }
                 
@@ -132,16 +134,16 @@ class App
         if (
             in_array('like', $explodedWords)
             || in_array('likes', $explodedWords)
-            || in_array('enjoy', $explodedWords)
+            || in_array('enjoy', $explodedWords)
             || in_array('enjoys', $explodedWords)
-            || in_array('love', $explodedWords)
+            || in_array('love', $explodedWords)
             || in_array('loves', $explodedWords)
-            || in_array('despise', $explodedWords)
+            || in_array('despise', $explodedWords)
             || in_array('despises', $explodedWords)
-            || in_array('hate', $explodedWords)
+            || in_array('hate', $explodedWords)
             || in_array('hates', $explodedWords)
         ) {
-            this->sendAppreciation($updateId, $messageData);
+            $this->sendAppreciation($updateId, $messageData);
             
             return;
         }
@@ -155,7 +157,7 @@ class App
         if (
             in_array('rip', $explodedWords)
         ) {
-            this->sendRip($updateId, $messageData);
+            $this->sendRip($updateId, $messageData);
             
             return;
         }
@@ -248,7 +250,7 @@ class App
     
     private function sendDuck(string $updateId, array $messageData): void
     {
-        $this->clapBack($updateId, $messageData, 'duck', $duckMessage, '🦆');
+        $this->clapBack($updateId, $messageData, 'duck', '🦆');
     }
     
     private function sendRip(string $updateId, array $messageData): void
