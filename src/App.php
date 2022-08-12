@@ -199,9 +199,12 @@ class App
         $fucksGivenMessages = [
             'I gave ' . $fucksGivenCount . ' fucks.',
             'I gave ' . $fucksGivenCount . ' fucks !',
-            'But I did gave ' . $fucksGivenCount . ' fucks, so what ?',
+            'But I did give ' . $fucksGivenCount . ' fucks, so what ?',
             'What do you mean ? I already have given a whole ' . $fucksGivenCount . ' of fucks.',
-            'I don\'t know how many fucks your mom gave, but I gave ' . $fucksGivenCount . ' of my own.'
+            'I don\'t know how many fucks your mom gave, but I gave ' . $fucksGivenCount . ' of my own.',
+            'Same, I don\'t care !',
+            'Yeah, right ? Who gives a damn fuck anyway ?',
+            'Even a bot would never give a fuck about that. And that\'s a bot who gave ' . $fucksGivenCount . ' fucks that tells you that !'
         ];
         
         $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
