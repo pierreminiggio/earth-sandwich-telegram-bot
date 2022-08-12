@@ -186,7 +186,7 @@ class App
                 $remainingMessage = $firstwordAndRemainingMessage[1];
                 $fuckMessage = 'fuck u ' . $remainingMessage;
                 
-                $this->clapBack($messageData, 'fuck', $fuckMessage);
+                $this->clapBack($updateId, $messageData, 'fuck', $fuckMessage);
             }
         }
     }
@@ -217,7 +217,7 @@ class App
         
         $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
         
-        $this->clapBack($messageData, 'given_fucks', $fucksGivenMessage);
+        $this->clapBack($updateId, $messageData, 'given_fucks', $fucksGivenMessage);
     }
     
     private function sendAppreciation(string $updateId, array $messageData): void
@@ -243,12 +243,12 @@ class App
         
         $appreciationMessage = $appreciationMessages[array_rand($appreciationMessages)];
         
-        $this->clapBack($messageData, 'appreciation', $appreciationMessage);
+        $this->clapBack($updateId, $messageData, 'appreciation', $appreciationMessage);
     }
     
     private function sendDuck(string $updateId, array $messageData): void
     {
-        $this->clapBack($messageData, 'duck', $duckMessage, '🦆');
+        $this->clapBack($updateId, $messageData, 'duck', $duckMessage, '🦆');
     }
     
     private function sendRip(string $updateId, array $messageData): void
@@ -263,10 +263,10 @@ class App
         
         $ripMessage = $ripMessages[array_rand($ripMessages)];
         
-        $this->clapBack($messageData, 'rip', $ripMessage);
+        $this->clapBack($updateId, $messageData, 'rip', $ripMessage);
     }
     
-    private function clapBack(array $messageData, string $messageType, string $messageContent): void
+    private function clapBack(string $updateId, array $messageData, string $messageType, string $messageContent): void
     {
         $chatId = $this->getChatIdFromMessageData($messageData);
         
