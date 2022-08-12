@@ -162,6 +162,7 @@ class App
                 $fuckMessageId = $this->sendMessageToChat($chatId, $fuckMessage);
                 $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
                 
+                $fetcher = $this->fetcher;
                 $fetcher->exec(
                     $fetcher->createQuery(
                         'fuck_message'
