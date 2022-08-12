@@ -212,7 +212,6 @@ class App
     private function sendAppreciation(string $updateId, array $messageData): void
     {
         $appreciationMessages = [
-            '👍',
             'I like it',
             'I enjoy it',
             'I don\'t like it',
@@ -220,6 +219,12 @@ class App
             'I apreciate it as well !',
             'That\'s cool !!!',
             'I don\'t care about what you like or dislike',
+            '👍',
+            '👍',
+            '❤️',
+            '❤️',
+            '❤️',
+            '❤️',
             '❤️',
             '❤️❤️',
             '❤️❤️❤️'
