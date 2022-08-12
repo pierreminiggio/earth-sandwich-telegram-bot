@@ -152,6 +152,14 @@ class App
             return;
         }
         
+        if (
+            in_array('rip', $explodedWords)
+        ) {
+            this->sendRip($updateId, $messageData);
+            
+            return;
+        }
+        
         $botname = '@EarthSandwichBot';
         
         if (str_starts_with($text, $botname)) {
@@ -241,6 +249,21 @@ class App
     private function sendDuck(string $updateId, array $messageData): void
     {
         $this->clapBack($messageData, 'duck', $duckMessage, '🦆');
+    }
+    
+    private function sendRip(string $updateId, array $messageData): void
+    {
+        $ripMessages = [
+            'RIP.',
+            'RIP in RIP',
+            'Rest In Pieces 🧩',
+            'Press F in the chat',
+            '🪦'
+        ];
+        
+        $ripMessage = $ripMessages[array_rand($ripMessages)];
+        
+        $this->clapBack($messageData, 'rip', $ripMessage);
     }
     
     private function clapBack(array $messageData, string $messageType, string $messageContent): void
