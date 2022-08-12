@@ -125,8 +125,12 @@ class App
         $text = $messageData['text'];
         
         if (
-            str_contains(strtolower($text), 'i don\'t give a fuck')
-            || str_contains(strtolower($text), 'i dont give a fuck')
+            str_contains(strtolower($text), 'give a fuck')
+            || str_contains(strtolower($text), 'gave a fuck')
+            || str_contains(strtolower($text), 'given a fuck')
+            || str_contains(strtolower($text), 'give fucks')
+            || str_contains(strtolower($text), 'gave fucks')
+            || str_contains(strtolower($text), 'given fucks')
         ) {
             $this->sendGivenFucks($updateId, $messageData, $text);
             
