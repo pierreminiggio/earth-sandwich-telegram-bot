@@ -146,6 +146,12 @@ class App
             return;
         }
         
+        if (str_contains(strtolower($text), 'duck')) {
+            $this->sendDuck($updateId, $messageData);
+            
+            return;
+        }
+        
         $botname = '@EarthSandwichBot';
         
         if (str_starts_with($text, $botname)) {
@@ -222,6 +228,11 @@ class App
         $appreciationMessage = $appreciationMessages[array_rand($appreciationMessages)];
         
         $this->clapBack($messageData, 'appreciation', $appreciationMessage);
+    }
+    
+    private function sendDuck(string $updateId, array $messageData): void
+    {
+        $this->clapBack($messageData, 'duck', $duckMessage, '🦆');
     }
     
     private function clapBack(array $messageData, string $messageType, string $messageContent): void
