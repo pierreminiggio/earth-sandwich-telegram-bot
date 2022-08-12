@@ -210,7 +210,7 @@ class App
             'content' => $content
         ];
         
-        $params[$telegramIdColumnName] = $messageId;
+        $params[$telegramIdColumnName] = $telegramMessageId;
         
         $fetcher = $this->fetcher;
         $fetcher->exec(
