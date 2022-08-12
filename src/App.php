@@ -326,7 +326,7 @@ class App
         $fetchedMessages = $this->getQueryResultsMessagesDatabaseIdsByUpdateId($updateId);
 
         if (! count($fetchedMessages)) {
-            throw new Eception('Update ' . $updateId . ' was not saved !');
+            throw new Exception('Update ' . $updateId . ' was not saved !');
         }
 
         $messageId = (int) $fetchedMessages[0]['id'];
