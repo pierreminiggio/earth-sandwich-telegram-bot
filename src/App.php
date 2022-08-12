@@ -82,16 +82,7 @@ class App
             $updateId = $fetchedUpdate['update_id'];
             $messageData = $fetchedUpdate['message'];
             
-            $fetchedMessages = $fetcher->query(
-                $fetcher->createQuery(
-                    'message'
-                )->select(
-                    'id',
-                )->where(
-                    'update_id = :update_id'
-                ),
-                ['update_id' => $updateId]
-            );
+            $fetchedMessages = $this->getQueryResultsMessagesDatabaseIdsByUpdateId($updateId);
             
             if (count($fetchedMessages)) {
                 continue;
@@ -176,25 +167,7 @@ class App
                 $chatId = $chat['id'];
                 
                 $fuckMessageId = $this->sendMessageToChat($chatId, $fuckMessage);
-                
-                $fetcher = $this->fetcher;
-                
-                $fetchedMessages = $fetcher->query(
-                    $fetcher->createQuery(
-                        'message'
-                    )->select(
-                        'id',
-                    )->where(
-                        'update_id = :update_id'
-                    ),
-                    ['update_id' => $updateId]
-                );
-
-                if (! count($fetchedMessages)) {
-                    throw new Eception('Update ' . $updateId . ' was not saved !');
-                }
-                
-                $messageId = (int) $fetchedMessages[0]['id'];
+                $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
                 
                 $fetcher->exec(
                     $fetcher->createQuery(
@@ -248,23 +221,7 @@ class App
         
         $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
         $givenFucksMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
-
-        $fetchedMessages = $fetcher->query(
-            $fetcher->createQuery(
-                'message'
-            )->select(
-                'id',
-            )->where(
-                'update_id = :update_id'
-            ),
-            ['update_id' => $updateId]
-        );
-
-        if (! count($fetchedMessages)) {
-            throw new Eception('Update ' . $updateId . ' was not saved !');
-        }
-
-        $messageId = (int) $fetchedMessages[0]['id'];
+        $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
 
         $fetcher->exec(
             $fetcher->createQuery(
@@ -278,6 +235,36 @@ class App
                 'given_fucks_message_id' => $givenFucksMessageId,
                 'content' => $fucksGivenMessage
             ]
+        );
+    }
+    
+    private function findMessageDataBaseIdByUpdateId(string $updateId): int
+    {
+        
+        $fetchedMessages = $this->getQueryResultsMessagesDatabaseIdsByUpdateId($updateId);
+
+        if (! count($fetchedMessages)) {
+            throw new Eception('Update ' . $updateId . ' was not saved !');
+        }
+
+        $messageId = (int) $fetchedMessages[0]['id'];
+        
+        return $messageId;
+    }
+    
+    private function getQueryResultsMessagesDatabaseIdsByUpdateId(string $updateId): array
+    {
+        $fetcher = $this->fetcher;
+        
+        return $fetcher->query(
+            $fetcher->createQuery(
+                'message'
+            )->select(
+                'id',
+            )->where(
+                'update_id = :update_id'
+            ),
+            ['update_id' => $updateId]
         );
     }
     
