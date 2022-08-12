@@ -223,6 +223,7 @@ class App
 
         $chatId = $chat['id'];
         
+        $fetcher = $this->fetcher;
         $fetchedCounts = $fetcher->rawQuery(
             'SELECT count(id) as given_fucks FROM fuck_message'
         );
@@ -235,8 +236,6 @@ class App
 
         $fucksGivenMessage = 'I gave ' . $fucksGivenCount . ' fucks !';
         $givenFucksMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
-
-        $fetcher = $this->fetcher;
 
         $fetchedMessages = $fetcher->query(
             $fetcher->createQuery(
