@@ -250,7 +250,24 @@ class App
     
     private function sendDuck(string $updateId, array $messageData): void
     {
-        $this->clapBack($updateId, $messageData, 'duck', '🦆');
+        $duckMessages = [
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆',
+            '🦆🦆🦆',
+            'Are you ducking kidding me ???',
+            'Can you stop being a duck for like 2 seconds, or is too much to ask for ?'
+        ];
+        
+        $duckMessage = $duckMessages[array_rand($duckMessages)];
+        $this->clapBack($updateId, $messageData, 'duck', $duckMessage);
     }
     
     private function sendRip(string $updateId, array $messageData): void
