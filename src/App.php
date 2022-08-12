@@ -124,6 +124,15 @@ class App
         
         $text = $messageData['text'];
         
+        if (
+            str_contains(strtolower($text), 'i don\'t give a fuck')
+            || str_contains(strtolower($text), 'i dont give a fuck')
+        ) {
+            $this->sendGivenFucks($updateId, $messageData, $text);
+            
+            return;
+        }
+        
         $botname = '@EarthSandwichBot';
         
         if (str_starts_with($text, $botname)) {
@@ -145,7 +154,7 @@ class App
     {
         $firstwordAndRemainingMessage = explode(' ', $messageText, 2);
         $fuckTrigger = 'fuck';
-        if ($firstwordAndRemainingMessage[0] === $fuckTrigger) {
+        if (strtolower($firstwordAndRemainingMessage[0]) === $fuckTrigger) {
             if (count($firstwordAndRemainingMessage) === 2) {
                 $remainingMessage = $firstwordAndRemainingMessage[1];
                 $fuckMessage = 'fuck u ' . $remainingMessage;
@@ -198,6 +207,67 @@ class App
                 );
             }
         }
+    }
+    
+    private function sendGivenFucks(string $updateId, array $messageData, string $messageText): void
+    {
+        if (! isset($messageData['chat'])) {
+            return;
+        }
+
+        $chat = $messageData['chat'];
+
+        if (! isset($chat['id'])) {
+            return;
+        }
+
+        $chatId = $chat['id'];
+        
+        $fetchedCounts = $fetcher->rawQuery(
+            'SELECT count(id) as given_fucks FROM fuck_message'
+        );
+        
+        if (! $fetchedCounts) {
+            return;
+        }
+        
+        $fucksGivenCount = $fetchedCounts[0]['given_fucks'];
+
+        $fucksGivenMessage = 'I gave ' . $fucksGivenCount . ' fucks !';
+        $givenFucksMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
+
+        $fetcher = $this->fetcher;
+
+        $fetchedMessages = $fetcher->query(
+            $fetcher->createQuery(
+                'message'
+            )->select(
+                'id',
+            )->where(
+                'update_id = :update_id'
+            ),
+            ['update_id' => $updateId]
+        );
+
+        if (! count($fetchedMessages)) {
+            throw new Eception('Update ' . $updateId . ' was not saved !');
+        }
+
+        $messageId = (int) $fetchedMessages[0]['id'];
+
+        $fetcher->exec(
+            $fetcher->createQuery(
+                'given_fucks_message'
+            )->insertInto(
+                'message_id, given_fucks_message_id, content',
+                ':message_id, :given_fucks_message_id, :content'
+            ),
+            [
+                'message_id' => $messageId,
+                'given_fucks_message_id' => $givenFucksMessageId,
+                'content' => $fucksGivenMessage
+            ]
+        );
     }
     
     private function sendMessageToChat(string $chatId, string $message): string
