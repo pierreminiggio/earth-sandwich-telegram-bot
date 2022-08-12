@@ -229,7 +229,7 @@ class App
             'I enjoy it',
             'I don\'t like it',
             'Your mom enjoyed it as well',
-            'I apreciate it as well !',
+            'I appreciate it as well !',
             'That\'s cool !!!',
             'I don\'t care about what you like or dislike',
             '👍',
