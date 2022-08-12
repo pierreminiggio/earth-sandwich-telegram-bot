@@ -162,20 +162,7 @@ class App
                 $fuckMessageId = $this->sendMessageToChat($chatId, $fuckMessage);
                 $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
                 
-                $fetcher = $this->fetcher;
-                $fetcher->exec(
-                    $fetcher->createQuery(
-                        'fuck_message'
-                    )->insertInto(
-                        'message_id, fuck_message_id, content',
-                        ':message_id, :fuck_message_id, :content'
-                    ),
-                    [
-                        'message_id' => $messageId,
-                        'fuck_message_id' => $fuckMessageId,
-                        'content' => $fuckMessage
-                    ]
-                );
+                $this->insertPostedMessage('fuck', $messageId, $fuckMessageId, $fuckMessage);
             }
         }
     }
@@ -208,21 +195,32 @@ class App
         ];
         
         $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
-        $givenFucksMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
+        $fucksGivenMessageId = $this->sendMessageToChat($chatId, $fucksGivenMessage);
         $messageId = $this->findMessageDataBaseIdByUpdateId($updateId);
 
+        $this->insertPostedMessage('given_fucks', $messageId, $fucksGivenMessageId, $fucksGivenMessage);
+    }
+    
+    private function insertPostedMessage(string $messageType, int $messageId, string $telegramMessageId, string $content): void
+    {
+        $telegramIdColumnName = $messageType . '_message_id';
+        
+        $params = [
+            'message_id' => $messageId,
+            'content' => $content
+        ];
+        
+        $params[$telegramIdColumnName] = $givenFucksMessageId;
+        
+        $fetcher = $this->fetcher;
         $fetcher->exec(
             $fetcher->createQuery(
-                'given_fucks_message'
+                $messageType . '_message'
             )->insertInto(
-                'message_id, given_fucks_message_id, content',
-                ':message_id, :given_fucks_message_id, :content'
+                'message_id, ' . $telegramIdColumnName . ', content',
+                ':message_id, : ' . $telegramIdColumnName . ', :content'
             ),
-            [
-                'message_id' => $messageId,
-                'given_fucks_message_id' => $givenFucksMessageId,
-                'content' => $fucksGivenMessage
-            ]
+            $params
         );
     }
     
