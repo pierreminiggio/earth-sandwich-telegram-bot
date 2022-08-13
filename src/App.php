@@ -310,7 +310,7 @@ class App
         
         $message = $messages[array_rand($messages)];
         
-        $this->clapBack($updateId, $messageData, 'rip', $message);
+        $this->clapBack($updateId, $messageData, 'wtf', $message);
     }
     
     private function clapBack(string $updateId, array $messageData, string $messageType, string $messageContent): void
