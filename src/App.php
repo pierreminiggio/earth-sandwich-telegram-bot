@@ -161,6 +161,17 @@ class App
             
             return;
         }
+
+        if (
+            in_array('wtf', $explodedWords)
+            || in_array('wtf?', $explodedWords)
+            || in_array('wtf?!', $explodedWords)
+            || in_array('wtf??', $explodedWords)
+        ) {
+            $this->sendWTF($updateId, $messageData);
+            
+            return;
+        }
         
         $botname = '@EarthSandwichBot';
         
@@ -186,9 +197,9 @@ class App
         if (strtolower($firstwordAndRemainingMessage[0]) === $fuckTrigger) {
             if (count($firstwordAndRemainingMessage) === 2) {
                 $remainingMessage = $firstwordAndRemainingMessage[1];
-                $fuckMessage = 'fuck u ' . $remainingMessage;
+                $message = 'fuck u ' . $remainingMessage;
                 
-                $this->clapBack($updateId, $messageData, 'fuck', $fuckMessage);
+                $this->clapBack($updateId, $messageData, 'fuck', $message);
             }
         }
     }
@@ -206,7 +217,7 @@ class App
         
         $fucksGivenCount = $fetchedCounts[0]['given_fucks'];
 
-        $fucksGivenMessages = [
+        $messages = [
             'I gave ' . $fucksGivenCount . ' fucks.',
             'I gave ' . $fucksGivenCount . ' fucks !',
             'But I did give ' . $fucksGivenCount . ' fucks, so what ?',
@@ -217,14 +228,14 @@ class App
             'Even a bot would never give a fuck about that. And that\'s a bot who gave ' . $fucksGivenCount . ' fucks that tells you that !'
         ];
         
-        $fucksGivenMessage = $fucksGivenMessages[array_rand($fucksGivenMessages)];
+        $message = $messages[array_rand($messages)];
         
-        $this->clapBack($updateId, $messageData, 'given_fucks', $fucksGivenMessage);
+        $this->clapBack($updateId, $messageData, 'given_fucks', $message);
     }
     
     private function sendAppreciation(string $updateId, array $messageData): void
     {
-        $appreciationMessages = [
+        $messages = [
             'I like it',
             'I enjoy it',
             'I don\'t like it',
@@ -243,14 +254,14 @@ class App
             '❤️❤️❤️'
         ];
         
-        $appreciationMessage = $appreciationMessages[array_rand($appreciationMessages)];
+        $message = $messages[array_rand($messages)];
         
-        $this->clapBack($updateId, $messageData, 'appreciation', $appreciationMessage);
+        $this->clapBack($updateId, $messageData, 'appreciation', $message);
     }
     
     private function sendDuck(string $updateId, array $messageData): void
     {
-        $duckMessages = [
+        $messages = [
             '🦆',
             '🦆',
             '🦆',
@@ -266,13 +277,13 @@ class App
             'Can you stop being a duck for like 2 seconds, or is too much to ask for ?'
         ];
         
-        $duckMessage = $duckMessages[array_rand($duckMessages)];
-        $this->clapBack($updateId, $messageData, 'duck', $duckMessage);
+        $message = $messages[array_rand($messages)];
+        $this->clapBack($updateId, $messageData, 'duck', $message);
     }
     
     private function sendRip(string $updateId, array $messageData): void
     {
-        $ripMessages = [
+        $messages = [
             'RIP.',
             'RIP in RIP',
             'Rest In Pieces 🧩',
@@ -280,9 +291,26 @@ class App
             '🪦'
         ];
         
-        $ripMessage = $ripMessages[array_rand($ripMessages)];
+        $message = $messages[array_rand($messages)];
         
-        $this->clapBack($updateId, $messageData, 'rip', $ripMessage);
+        $this->clapBack($updateId, $messageData, 'rip', $message);
+    }
+
+    private function sendWTF(string $updateId, array $messageData): void
+    {
+        $messages = [
+            'Yeah, what the fuck dude ?',
+            'Are you ok ?',
+            'Right ! What the fuck indeed !',
+            'Yo, what happened ?',
+            'What the fuck ?',
+            'What the actual fuck ?',
+            'I don\'t know what fuck you are looking for, but please know that I\'m here to give fucks ♥'
+        ];
+        
+        $message = $messages[array_rand($messages)];
+        
+        $this->clapBack($updateId, $messageData, 'rip', $message);
     }
     
     private function clapBack(string $updateId, array $messageData, string $messageType, string $messageContent): void
