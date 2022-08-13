@@ -172,6 +172,16 @@ class App
             
             return;
         }
+
+        if (
+            in_array('laik', $explodedWords)
+        ) {
+            $this->sendLaik($updateId, $messageData);
+            
+            return;
+        }
+
+        
         
         $botname = '@EarthSandwichBot';
         
@@ -312,6 +322,20 @@ class App
         
         $this->clapBack($updateId, $messageData, 'wtf', $message);
     }
+
+    private function sendLaik(string $updateId, array $messageData): void
+    {
+        $messages = [
+            'It\'s "like"',
+            '*like',
+            'Yo @papuna85, you can do better than using "like" in every single sentence.'
+        ];
+        
+        $message = $messages[array_rand($messages)];
+        
+        $this->clapBack($updateId, $messageData, 'laik', $message);
+    }
+    
     
     private function clapBack(string $updateId, array $messageData, string $messageType, string $messageContent): void
     {
