@@ -175,6 +175,7 @@ class App
 
         if (
             in_array('laik', $explodedWords)
+            || in_array('laiks', $explodedWords)
         ) {
             $this->sendLaik($updateId, $messageData);
             
