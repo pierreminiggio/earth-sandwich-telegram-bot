@@ -181,7 +181,14 @@ class App
             
             return;
         }
-
+        
+        if (
+            in_array('uno', $explodedWords)
+        ) {
+            $this->sendUno($updateId, $messageData);
+            
+            return;
+        }
         
         
         $botname = '@EarthSandwichBot';
@@ -337,6 +344,17 @@ class App
         $this->clapBack($updateId, $messageData, 'laik', $message);
     }
     
+    private function sendUno(string $updateId, array $messageData): void
+    {
+        $messages = [
+            'Uno ! https://pierre.uno',
+            'Contre Uno ! https://pierre.uno/contre',
+        ];
+        
+        $message = $messages[array_rand($messages)];
+        
+        $this->clapBack($updateId, $messageData, 'uno', $message);
+    }
     
     private function clapBack(string $updateId, array $messageData, string $messageType, string $messageContent): void
     {
