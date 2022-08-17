@@ -190,6 +190,21 @@ class App
             return;
         }
         
+        if (
+            (
+                in_array('git', $explodedWords)
+                || in_array('get', $explodedWords)
+            )
+            && (
+                in_array('gud', $explodedWords)
+                || in_array('good', $explodedWords)
+            )
+        ) {
+            $this->sendGitgud($updateId, $messageData);
+            
+            return;
+        }
+        
         
         $botname = '@EarthSandwichBot';
         
@@ -354,6 +369,17 @@ class App
         $message = $messages[array_rand($messages)];
         
         $this->clapBack($updateId, $messageData, 'uno', $message);
+    }
+    
+    private function sendGitgud(string $updateId, array $messageData): void
+    {
+        $messages = [
+            'https://gitgud.fr',
+        ];
+        
+        $message = $messages[array_rand($messages)];
+        
+        $this->clapBack($updateId, $messageData, 'gitgud', $message);
     }
     
     private function clapBack(string $updateId, array $messageData, string $messageType, string $messageContent): void
